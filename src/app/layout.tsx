@@ -14,6 +14,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/bee-icon.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+        <link rel="icon" href="/bee-icon-light.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="/bee-icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/bee-icon.svg" />
       </head>

@@ -15,29 +15,37 @@ export default function BeeIcon({ className = '', size = 24 }: BeeIconProps) {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* Wing - simple oval */}
-      <ellipse cx="30" cy="40" rx="12" ry="20" fill="currentColor" fillOpacity="0.8" />
+      {/* Wings - behind body, facing right */}
+      <ellipse cx="35" cy="45" rx="8" ry="18" fill="currentColor" fillOpacity="0.6" transform="rotate(-15 35 45)" />
+      <ellipse cx="42" cy="40" rx="6" ry="15" fill="currentColor" fillOpacity="0.4" transform="rotate(-25 42 40)" />
       
-      {/* Body - simple oval */}
-      <ellipse cx="50" cy="50" rx="25" ry="15" fill="currentColor" />
+      {/* Body - elongated oval facing right */}
+      <ellipse cx="50" cy="50" rx="22" ry="12" fill="currentColor" />
       
-      {/* Head - simple circle */}
-      <circle cx="25" cy="50" r="12" fill="currentColor" />
+      {/* Head - positioned to the right */}
+      <circle cx="70" cy="50" r="10" fill="currentColor" />
       
-      {/* Simple stripes */}
-      <rect x="35" y="42" width="4" height="16" fill="white" fillOpacity="0.3" />
-      <rect x="45" y="42" width="4" height="16" fill="white" fillOpacity="0.3" />
-      <rect x="55" y="42" width="4" height="16" fill="white" fillOpacity="0.3" />
+      {/* Bee stripes - vertical on body */}
+      <rect x="38" y="44" width="3" height="12" fill="white" fillOpacity="0.4" />
+      <rect x="46" y="44" width="3" height="12" fill="white" fillOpacity="0.4" />
+      <rect x="54" y="44" width="3" height="12" fill="white" fillOpacity="0.4" />
       
-      {/* Simple eye */}
-      <circle cx="22" cy="47" r="2" fill="white" />
+      {/* Eye facing right */}
+      <circle cx="73" cy="48" r="2" fill="white" />
       
-      {/* Simple antenna */}
-      <line x1="20" y1="42" x2="18" y2="35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="18" cy="35" r="2" fill="currentColor" />
+      {/* Antennae */}
+      <line x1="75" y1="44" x2="78" y2="38" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <line x1="72" y1="43" x2="75" y2="37" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="78" cy="38" r="1.5" fill="currentColor" />
+      <circle cx="75" cy="37" r="1.5" fill="currentColor" />
       
-      {/* Simple stinger */}
-      <path d="M 74 50 L 78 48 L 78 52 Z" fill="currentColor" />
+      {/* Stinger - pointing left from rear of body */}
+      <path d="M 28 50 L 22 48 L 22 52 Z" fill="currentColor" />
+      
+      {/* Simple legs */}
+      <line x1="42" y1="58" x2="40" y2="65" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="50" y1="58" x2="48" y2="65" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="58" y1="58" x2="56" y2="65" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }

@@ -1,25 +1,33 @@
 <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Wing - simple oval -->
-  <ellipse cx="30" cy="40" rx="12" ry="20" fill="#1a1a1a" fill-opacity="0.9" />
+  <!-- Wings - behind body, facing right -->
+  <ellipse cx="35" cy="45" rx="8" ry="18" fill="#1a1a1a" fill-opacity="0.6" transform="rotate(-15 35 45)" />
+  <ellipse cx="42" cy="40" rx="6" ry="15" fill="#1a1a1a" fill-opacity="0.4" transform="rotate(-25 42 40)" />
   
-  <!-- Body - simple oval -->
-  <ellipse cx="50" cy="50" rx="25" ry="15" fill="#1a1a1a" />
+  <!-- Body - elongated oval facing right -->
+  <ellipse cx="50" cy="50" rx="22" ry="12" fill="#1a1a1a" />
   
-  <!-- Head - simple circle -->
-  <circle cx="25" cy="50" r="12" fill="#1a1a1a" />
+  <!-- Head - positioned to the right -->
+  <circle cx="70" cy="50" r="10" fill="#1a1a1a" />
   
-  <!-- Simple stripes -->
-  <rect x="35" y="42" width="4" height="16" fill="white" fill-opacity="0.4" />
-  <rect x="45" y="42" width="4" height="16" fill="white" fill-opacity="0.4" />
-  <rect x="55" y="42" width="4" height="16" fill="white" fill-opacity="0.4" />
+  <!-- Bee stripes - vertical on body -->
+  <rect x="38" y="44" width="3" height="12" fill="white" fill-opacity="0.5" />
+  <rect x="46" y="44" width="3" height="12" fill="white" fill-opacity="0.5" />
+  <rect x="54" y="44" width="3" height="12" fill="white" fill-opacity="0.5" />
   
-  <!-- Simple eye -->
-  <circle cx="22" cy="47" r="2" fill="white" />
+  <!-- Eye facing right -->
+  <circle cx="73" cy="48" r="2" fill="white" />
   
-  <!-- Simple antenna -->
-  <line x1="20" y1="42" x2="18" y2="35" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" />
-  <circle cx="18" cy="35" r="2" fill="#1a1a1a" />
+  <!-- Antennae -->
+  <line x1="75" y1="44" x2="78" y2="38" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" />
+  <line x1="72" y1="43" x2="75" y2="37" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" />
+  <circle cx="78" cy="38" r="1.5" fill="#1a1a1a" />
+  <circle cx="75" cy="37" r="1.5" fill="#1a1a1a" />
   
-  <!-- Simple stinger -->
-  <path d="M 74 50 L 78 48 L 78 52 Z" fill="#1a1a1a" />
+  <!-- Stinger - pointing left from rear of body -->
+  <path d="M 28 50 L 22 48 L 22 52 Z" fill="#1a1a1a" />
+  
+  <!-- Simple legs -->
+  <line x1="42" y1="58" x2="40" y2="65" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" />
+  <line x1="50" y1="58" x2="48" y2="65" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" />
+  <line x1="58" y1="58" x2="56" y2="65" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" />
 </svg>

@@ -189,12 +189,12 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
       {/* Post-Recording Form Modal */}
       {showPostRecordingForm && (
         <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="glass-panel-rounded p-8 w-full max-w-md">
-            <h3 className="text-xl font-medium zen-text mb-6 text-center">Meeting Details</h3>
+          <div className="glass-panel p-6 sm:p-8 w-full max-w-md floating">
+            <h3 className="text-xl sm:text-2xl font-light zen-text mb-6 sm:mb-8 text-center">Meeting Details</h3>
             
             <div className="space-y-6">
               <div>
-                <label htmlFor="meeting-title" className="block text-sm font-medium zen-text mb-3">
+                <label htmlFor="meeting-title" className="block text-sm font-medium zen-text mb-3 opacity-90">
                   Meeting Title *
                 </label>
                 <input
@@ -202,34 +202,40 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
                   id="meeting-title"
                   value={meetingTitle}
                   onChange={(e) => setMeetingTitle(e.target.value)}
-                  className="w-full px-4 py-3 glass-panel-rounded zen-text placeholder-white placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                  className="w-full px-4 py-3 glass-panel-dark zen-text placeholder-white placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-30 transition-all duration-300"
                   placeholder="e.g., Commission Meeting - August 2025"
                   autoFocus
                 />
               </div>
               
               <div>
-                <label htmlFor="meeting-type" className="block text-sm font-medium zen-text mb-3">
+                <label htmlFor="meeting-type" className="block text-sm font-medium zen-text mb-3 opacity-90">
                   Meeting Type
                 </label>
                 <select
                   id="meeting-type"
                   value={meetingType}
                   onChange={(e) => setMeetingType(e.target.value as 'commission' | 'case' | 'other')}
-                  className="w-full px-4 py-3 glass-panel-rounded zen-text focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                  className="w-full px-4 py-3 glass-panel-dark zen-text focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-30 transition-all duration-300 appearance-none bg-transparent"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.8)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 12px center',
+                    backgroundSize: '16px'
+                  }}
                 >
-                  <option value="commission">Commission Meeting</option>
-                  <option value="case">Case Hearing</option>
-                  <option value="other">Other</option>
+                  <option value="commission" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Commission Meeting</option>
+                  <option value="case" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Case Hearing</option>
+                  <option value="other" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Other</option>
                 </select>
               </div>
             </div>
 
-            <div className="mt-8 flex space-x-4">
+            <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <button
                 onClick={handleProcessRecording}
                 disabled={!meetingTitle.trim() || isProcessing}
-                className="flex-1 glass-button py-3 px-6 zen-text font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="flex-1 glass-button py-3 px-6 zen-text font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center"
               >
                 {isProcessing ? (
                   <>
@@ -242,13 +248,16 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
                     Processing...
                   </>
                 ) : (
-                  'Save & Process'
+                  <>
+                    <DocumentTextIcon className="h-5 w-5 mr-2" />
+                    Save & Process
+                  </>
                 )}
               </button>
               <button
                 onClick={handleDiscardRecording}
                 disabled={isProcessing}
-                className="glass-button py-3 px-6 zen-text font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="glass-button py-3 px-6 zen-text font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 sm:w-auto"
               >
                 Discard
               </button>

@@ -189,7 +189,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
       {/* Post-Recording Form Modal */}
       {showPostRecordingForm && (
         <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="glass-panel p-6 sm:p-8 w-full max-w-md floating">
+          <div className="glass-panel p-6 sm:p-8 w-full max-w-md">
             <h3 className="text-xl sm:text-2xl font-light zen-text mb-6 sm:mb-8 text-center">Meeting Details</h3>
             
             <div className="space-y-6">

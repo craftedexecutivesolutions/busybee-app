@@ -301,3 +301,45 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.5);
 }
+
+/* Tropical Beach Background for Recording Form Modal */
+.tropical-beach-bg {
+  background: 
+    /* Dark overlay for better form readability */
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    /* Tropical beach with turquoise waters and green cliffs */
+    linear-gradient(180deg, 
+      #87CEEB 0%,      /* Sky blue at top */
+      #40E0D0 30%,     /* Turquoise water */
+      #20B2AA 50%,     /* Light sea green */
+      #00CED1 70%,     /* Dark turquoise */
+      #228B22 85%,     /* Forest green for cliffs */
+      #FFFACD 100%     /* Light cream for beach */
+    );
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Enhanced tropical beach effect with subtle animation */
+.tropical-beach-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    /* Subtle water shimmer effect */
+    radial-gradient(circle at 30% 40%, rgba(64, 224, 208, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(32, 178, 170, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 30%, rgba(0, 206, 209, 0.1) 0%, transparent 40%);
+  animation: tropical-shimmer 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes tropical-shimmer {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}

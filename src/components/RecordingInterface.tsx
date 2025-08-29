@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { 
   StopIcon,
   PauseIcon,
@@ -42,7 +42,6 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
     isTranscribing,
     transcript: liveTranscript,
     segments: transcriptSegments,
-    error: transcriptionError,
     isSupported: isTranscriptionSupported,
     startTranscription,
     stopTranscription,
@@ -188,7 +187,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
 
       {/* Post-Recording Form Modal */}
       {showPostRecordingForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-50 tropical-beach-bg">
           <div className="glass-panel p-6 sm:p-8 w-full max-w-md">
             <h3 className="text-xl sm:text-2xl font-light zen-text mb-6 sm:mb-8 text-center">Meeting Details</h3>
             

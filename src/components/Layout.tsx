@@ -134,7 +134,7 @@ export default function Layout({ children, currentPage, onPageChange }: LayoutPr
       {/* Mobile Navigation Overlay */}
       {mobileNavOpen && (
         <div className={`${isMobileView ? '' : 'md:hidden'} fixed inset-0 z-40`}>
-          <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm" onClick={() => setMobileNavOpen(false)} />
+          <div className="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm" onClick={() => setMobileNavOpen(false)} />
           <div className="fixed top-0 left-0 h-full w-72 sm:w-80 bg-transparent p-4 sm:p-6">
             <div className="mt-16">
               <div className="flex items-center mb-8">

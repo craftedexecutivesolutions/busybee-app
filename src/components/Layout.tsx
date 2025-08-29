@@ -91,17 +91,17 @@ export default function Layout({ children, currentPage, onPageChange }: LayoutPr
   const [isMobileView, setIsMobileView] = useState(false);
 
   return (
-    <div className={`paradise-bg min-h-screen ${isMobileView ? 'max-w-sm mx-auto' : ''}`}>
+    <div className={`min-h-screen ${isMobileView ? 'max-w-sm mx-auto' : ''}`}>
       {/* Mobile Navigation Toggle */}
       <div className={`${isMobileView ? '' : 'md:hidden'} fixed top-4 left-4 z-50`}>
         <button
           onClick={() => setMobileNavOpen(!mobileNavOpen)}
-          className="glass-button p-3 rounded-full shadow-lg"
+          className="modern-nav-button p-3"
         >
           {mobileNavOpen ? (
-            <XMarkIcon className="h-6 w-6 zen-text" />
+            <XMarkIcon className="h-6 w-6 modern-text" />
           ) : (
-            <Bars3Icon className="h-6 w-6 zen-text" />
+            <Bars3Icon className="h-6 w-6 modern-text" />
           )}
         </button>
       </div>
@@ -138,7 +138,7 @@ export default function Layout({ children, currentPage, onPageChange }: LayoutPr
           <div className="fixed top-0 left-0 h-full w-72 sm:w-80 bg-transparent p-4 sm:p-6">
             <div className="mt-16">
               <div className="flex items-center mb-8">
-                <BeeIcon className="h-8 w-8 text-yellow-400" />
+                <img src="/busybee-yellow.svg" alt="BusyBee" className="h-8 w-8" />
                 <h1 className="ml-3 text-xl font-bold zen-text">BusyBee</h1>
               </div>
               
@@ -153,7 +153,7 @@ export default function Layout({ children, currentPage, onPageChange }: LayoutPr
                           setMobileNavOpen(false);
                         }}
                         className={`
-                          w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center glass-nav-button
+                          w-14 h-14 sm:w-16 sm:h-16 nav-button-circle flex items-center justify-center
                           ${isActive ? 'active' : ''}
                         `}
                         title={item.name}
@@ -168,7 +168,7 @@ export default function Layout({ children, currentPage, onPageChange }: LayoutPr
                 })}
               </div>
 
-              <div className="mt-8 glass-panel-dark p-4 rounded-xl">
+              <div className="mt-8 modern-card p-4">
                 <p className="text-sm font-medium zen-text">Civil Service Commission</p>
                 <p className="text-xs zen-text opacity-75">BusyBee AI Assistant</p>
               </div>
@@ -184,7 +184,7 @@ export default function Layout({ children, currentPage, onPageChange }: LayoutPr
         <div className="h-full bg-transparent p-6">
           <div className="mt-16">
             <div className="flex items-center mb-8">
-              <BeeIcon className={`h-8 w-8 text-yellow-400 transition-all ${navCollapsed ? '' : 'mr-3'}`} />
+              <img src="/busybee-yellow.svg" alt="BusyBee" className={`h-8 w-8 transition-all ${navCollapsed ? '' : 'mr-3'}`} />
               {!navCollapsed && (
                 <h1 className="text-xl font-bold zen-text">BusyBee</h1>
               )}
@@ -199,7 +199,7 @@ export default function Layout({ children, currentPage, onPageChange }: LayoutPr
                       key={item.name}
                       onClick={() => onPageChange(item.id)}
                       className={`
-                        w-12 h-12 rounded-full flex items-center justify-center glass-nav-button
+                        w-12 h-12 nav-button-circle flex items-center justify-center
                         ${isActive ? 'active' : ''}
                       `}
                       title={item.name}
@@ -218,7 +218,7 @@ export default function Layout({ children, currentPage, onPageChange }: LayoutPr
                       <button
                         onClick={() => onPageChange(item.id)}
                         className={`
-                          w-16 h-16 rounded-full flex items-center justify-center glass-nav-button
+                          w-16 h-16 nav-button-circle flex items-center justify-center
                           ${isActive ? 'active' : ''}
                         `}
                       >
@@ -234,7 +234,7 @@ export default function Layout({ children, currentPage, onPageChange }: LayoutPr
             )}
 
             {!navCollapsed && (
-              <div className="mt-8 glass-panel-dark p-4 rounded-xl">
+              <div className="mt-8 modern-card p-4">
                 <p className="text-sm font-medium zen-text">Civil Service Commission</p>
                 <p className="text-xs zen-text opacity-75">BusyBee AI Assistant</p>
               </div>

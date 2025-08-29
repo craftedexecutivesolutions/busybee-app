@@ -14,10 +14,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <link rel="icon" href="/busybee-yellow.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
-        <link rel="icon" href="/busybee-yellow.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
-        <link rel="icon" href="/busybee-yellow.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/busybee-yellow.svg" />
+        <link rel="icon" href="/bee-icon.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+        <link rel="icon" href="/bee-icon-light.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+        <link rel="icon" href="/bee-icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/bee-icon.svg" />
       </head>
       <body className="antialiased">
         {children}

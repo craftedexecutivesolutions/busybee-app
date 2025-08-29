@@ -162,26 +162,28 @@ export default function MeetingsList() {
     <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6 sm:mb-8">
-        <h1 className="text-xl sm:text-2xl font-bold zen-text">Meeting Recordings</h1>
-        <p className="mt-1 text-sm zen-text opacity-80">
-          View and manage all your recorded meetings and generated notes
-        </p>
+        <div className="modern-card p-6">
+          <h1 className="text-xl sm:text-2xl font-bold modern-text">BeeLog</h1>
+          <p className="mt-2 text-sm modern-text-muted">
+            View and manage all your recorded meetings and generated notes
+          </p>
+        </div>
       </div>
 
       {/* Search and Filters */}
-      <div className="glass-panel-dark rounded-lg shadow p-4 sm:p-6 mb-6">
+      <div className="modern-card p-4 sm:p-6 mb-6">
         <div className="flex flex-col sm:flex-row gap-4">
           {/* Search */}
           <div className="flex-1">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <MagnifyingGlassIcon className="h-5 w-5 zen-text opacity-60" />
+                <MagnifyingGlassIcon className="h-5 w-5 modern-text opacity-60" />
               </div>
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="glass-panel-dark pl-10 pr-3 py-2 rounded-lg zen-text placeholder-white placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-30 w-full"
+                className="modern-input pl-10 pr-3 py-2 w-full"
                 placeholder="Search meetings or participants..."
               />
             </div>
@@ -192,7 +194,7 @@ export default function MeetingsList() {
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value as any)}
-              className="glass-panel-dark pl-3 pr-10 py-2 zen-text rounded-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-30"
+              className="modern-input pl-3 pr-10 py-2"
             >
               <option value="all">All Types</option>
               <option value="commission">Commission Meetings</option>
@@ -206,7 +208,7 @@ export default function MeetingsList() {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value as any)}
-              className="glass-panel-dark pl-3 pr-10 py-2 zen-text rounded-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-30"
+              className="modern-input pl-3 pr-10 py-2"
             >
               <option value="all">All Status</option>
               <option value="completed">Completed</option>
@@ -219,18 +221,18 @@ export default function MeetingsList() {
 
       {/* Results Summary */}
       <div className="mb-4">
-        <p className="text-sm zen-text opacity-75">
+        <p className="text-sm modern-text-muted">
           Showing {filteredRecordings.length} of {recordings.length} recordings
         </p>
       </div>
 
       {/* Recordings List */}
-      <div className="glass-panel-dark shadow rounded-lg">
+      <div className="modern-card">
         {filteredRecordings.length === 0 ? (
           <div className="text-center py-12">
-            <MicrophoneIcon className="mx-auto h-12 w-12 zen-text opacity-60" />
-            <h3 className="mt-2 text-sm font-medium zen-text">No recordings found</h3>
-            <p className="mt-1 text-sm zen-text opacity-75">
+            <MicrophoneIcon className="mx-auto h-12 w-12 modern-text opacity-60" />
+            <h3 className="mt-2 text-sm font-medium modern-text">No recordings found</h3>
+            <p className="mt-1 text-sm modern-text-muted">
               {recordings.length === 0 
                 ? "Start your first recording to see it appear here."
                 : "Try adjusting your search or filter criteria."
@@ -240,12 +242,12 @@ export default function MeetingsList() {
         ) : (
           <div className="space-y-4 p-4 sm:p-6">
             {filteredRecordings.map((recording) => (
-              <div key={recording.id} className="glass-panel p-4 sm:p-6 rounded-lg hover:glass-panel-rounded transition-all">
+              <div key={recording.id} className="modern-card bg-opacity-60 hover:bg-opacity-80 p-4 sm:p-6 transition-all duration-200">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     {/* Title and Type */}
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
-                      <h3 className="text-lg font-medium zen-text">
+                      <h3 className="text-lg font-medium modern-text">
                         {recording.title}
                       </h3>
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTypeColor(recording.type)}`}>
@@ -257,7 +259,7 @@ export default function MeetingsList() {
                     </div>
 
                     {/* Details */}
-                    <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center text-sm zen-text opacity-75 gap-2 sm:gap-4">
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center text-sm modern-text-muted gap-2 sm:gap-4">
                       <span className="flex items-center">
                         {format(new Date(recording.date), 'MMM d, yyyy • h:mm a')}
                       </span>
@@ -279,37 +281,33 @@ export default function MeetingsList() {
                       <>
                         <button
                           onClick={() => handleViewTranscript(recording)}
-                          className="glass-button inline-flex items-center px-3 py-2 text-sm font-medium zen-text transition-all"
+                          className="nav-button-circle w-10 h-10 flex items-center justify-center"
                           title="View Transcript"
                         >
-                          <DocumentTextIcon className="h-4 w-4 mr-2" />
-                          <span className="hidden sm:inline">Transcript</span>
+                          <DocumentTextIcon className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => handleViewSummary(recording)}
-                          className="glass-button inline-flex items-center px-3 py-2 text-sm font-medium zen-text transition-all"
+                          className="nav-button-circle w-10 h-10 flex items-center justify-center"
                           title="View Summary"
                         >
-                          <EyeIcon className="h-4 w-4 mr-2" />
-                          <span className="hidden sm:inline">Summary</span>
+                          <EyeIcon className="h-5 w-5" />
                         </button>
                         <div className="relative">
                           <button
                             onClick={() => setShowDownloadMenu(showDownloadMenu === recording.id ? null : recording.id)}
-                            className="glass-button inline-flex items-center px-3 py-2 text-sm font-medium zen-text transition-all"
+                            className="nav-button-circle w-10 h-10 flex items-center justify-center"
                             title="Download Options"
                           >
-                            <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
-                            <span className="hidden sm:inline">Download</span>
-                            <ChevronDownIcon className="h-3 w-3 ml-1" />
+                            <ArrowDownTrayIcon className="h-5 w-5" />
                           </button>
                           
                           {showDownloadMenu === recording.id && (
-                            <div className="absolute right-0 top-full mt-2 w-48 glass-panel-dark rounded-lg shadow-lg z-10">
+                            <div className="absolute right-0 top-full mt-2 w-48 modern-card shadow-lg z-10">
                               <div className="py-1">
                                 <button
                                   onClick={() => handleDownload(recording, 'audio')}
-                                  className="flex items-center w-full px-4 py-2 text-sm zen-text hover:glass-panel-rounded"
+                                  className="flex items-center w-full px-4 py-2 text-sm modern-text hover:bg-accent hover:text-accent-foreground rounded-lg transition-all duration-200"
                                 >
                                   <SpeakerWaveIcon className="h-4 w-4 mr-3" />
                                   Download Audio
@@ -317,7 +315,7 @@ export default function MeetingsList() {
                                 {recording.transcriptUrl && (
                                   <button
                                     onClick={() => handleDownload(recording, 'transcript')}
-                                    className="flex items-center w-full px-4 py-2 text-sm zen-text hover:glass-panel-rounded"
+                                    className="flex items-center w-full px-4 py-2 text-sm modern-text hover:bg-accent hover:text-accent-foreground rounded-lg transition-all duration-200"
                                   >
                                     <DocumentTextIcon className="h-4 w-4 mr-3" />
                                     Download Transcript
@@ -326,7 +324,7 @@ export default function MeetingsList() {
                                 {recording.summaryUrl && (
                                   <button
                                     onClick={() => handleDownload(recording, 'summary')}
-                                    className="flex items-center w-full px-4 py-2 text-sm zen-text hover:glass-panel-rounded"
+                                    className="flex items-center w-full px-4 py-2 text-sm modern-text hover:bg-accent hover:text-accent-foreground rounded-lg transition-all duration-200"
                                   >
                                     <DocumentIcon className="h-4 w-4 mr-3" />
                                     Download Summary
@@ -339,7 +337,7 @@ export default function MeetingsList() {
                       </>
                     )}
                     {recording.status === 'processing' && (
-                      <div className="flex items-center space-x-2 text-sm zen-text opacity-75">
+                      <div className="flex items-center space-x-2 text-sm modern-text-muted">
                         <div className="animate-spin h-4 w-4 border-2 border-blue-400 border-t-transparent rounded-full"></div>
                         <span>Processing...</span>
                       </div>

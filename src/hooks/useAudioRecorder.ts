@@ -54,14 +54,6 @@ export const useAudioRecorder = () => {
       mediaRecorder.start(1000); // Collect data every second
       startTimeRef.current = Date.now();
 
-      // Start duration timer
-      intervalRef.current = setInterval(() => {
-        setState(prev => ({
-          ...prev,
-          duration: Math.floor((Date.now() - startTimeRef.current) / 1000)
-        }));
-      }, 1000);
-
       setState(prev => ({
         ...prev,
         isRecording: true,
@@ -69,6 +61,14 @@ export const useAudioRecorder = () => {
         stream,
         duration: 0
       }));
+
+      // Start duration timer AFTER setting initial state
+      intervalRef.current = setInterval(() => {
+        setState(prev => ({
+          ...prev,
+          duration: Math.floor((Date.now() - startTimeRef.current) / 1000)
+        }));
+      }, 1000);
 
     } catch (error) {
       console.error('Error starting recording:', error);

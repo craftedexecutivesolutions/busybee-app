@@ -77,20 +77,22 @@ export default function Dashboard({ onStartRecording }: DashboardProps) {
     <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6 sm:mb-8">
-        <h1 className="text-xl sm:text-2xl font-bold zen-text">BusyBee Dashboard</h1>
-        <p className="mt-1 text-sm zen-text opacity-80">
-          Your all-in-one paradise workspace for executive productivity
-        </p>
+        <div className="modern-card p-6 mb-6">
+          <h1 className="text-xl sm:text-2xl font-bold modern-text">BusyBee Dashboard</h1>
+          <p className="mt-2 text-sm modern-text-muted">
+            Your all-in-one paradise workspace for executive productivity
+          </p>
+        </div>
       </div>
 
       {/* Quick Actions */}
       <div className="mb-6 sm:mb-8">
-        <div className="glass-panel-dark rounded-lg shadow p-4 sm:p-6">
-          <h2 className="text-base sm:text-lg font-medium zen-text mb-3 sm:mb-4">Quick Actions</h2>
+        <div className="modern-card p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-medium modern-text mb-3 sm:mb-4">Quick Actions</h2>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <button
               onClick={onStartRecording}
-              className="glass-button inline-flex items-center px-4 py-2 text-sm font-medium zen-text transition-all"
+              className="modern-button inline-flex items-center px-4 py-2 text-sm font-medium"
             >
               <MicrophoneIcon className="h-5 w-5 mr-2" />
               Start New Recording
@@ -109,64 +111,64 @@ export default function Dashboard({ onStartRecording }: DashboardProps) {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="glass-panel-dark overflow-hidden shadow rounded-lg">
+        <div className="modern-card overflow-hidden">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <DocumentTextIcon className="h-6 w-6 zen-text opacity-70" />
+                <DocumentTextIcon className="h-6 w-6 modern-text opacity-70" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium zen-text opacity-80 truncate">Total Recordings</dt>
-                  <dd className="text-lg font-medium zen-text">{stats.totalRecordings}</dd>
+                  <dt className="text-sm font-medium modern-text-muted truncate">Total Recordings</dt>
+                  <dd className="text-lg font-medium modern-text">{stats.totalRecordings}</dd>
                 </dl>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="glass-panel-dark overflow-hidden shadow rounded-lg">
+        <div className="modern-card overflow-hidden">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <ClockIcon className="h-6 w-6 zen-text opacity-70" />
+                <ClockIcon className="h-6 w-6 modern-text opacity-70" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium zen-text opacity-80 truncate">Today&apos;s Recordings</dt>
-                  <dd className="text-lg font-medium zen-text">{stats.todayRecordings}</dd>
+                  <dt className="text-sm font-medium modern-text-muted truncate">Today&apos;s Recordings</dt>
+                  <dd className="text-lg font-medium modern-text">{stats.todayRecordings}</dd>
                 </dl>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="glass-panel-dark overflow-hidden shadow rounded-lg">
+        <div className="modern-card overflow-hidden">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <MicrophoneIcon className="h-6 w-6 zen-text opacity-70" />
+                <MicrophoneIcon className="h-6 w-6 modern-text opacity-70" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium zen-text opacity-80 truncate">Total Duration</dt>
-                  <dd className="text-lg font-medium zen-text">{stats.totalDuration}m</dd>
+                  <dt className="text-sm font-medium modern-text-muted truncate">Total Duration</dt>
+                  <dd className="text-lg font-medium modern-text">{stats.totalDuration}m</dd>
                 </dl>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="glass-panel-dark overflow-hidden shadow rounded-lg">
+        <div className="modern-card overflow-hidden">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <ExclamationCircleIcon className="h-6 w-6 zen-text opacity-70" />
+                <ExclamationCircleIcon className="h-6 w-6 modern-text opacity-70" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium zen-text opacity-80 truncate">Processing</dt>
-                  <dd className="text-lg font-medium zen-text">{stats.processingCount}</dd>
+                  <dt className="text-sm font-medium modern-text-muted truncate">Processing</dt>
+                  <dd className="text-lg font-medium modern-text">{stats.processingCount}</dd>
                 </dl>
               </div>
             </div>
@@ -175,14 +177,14 @@ export default function Dashboard({ onStartRecording }: DashboardProps) {
       </div>
 
       {/* Recent Recordings */}
-      <div className="glass-panel-dark shadow rounded-lg">
+      <div className="modern-card">
         <div className="px-4 py-5 sm:p-6">
-          <h3 className="text-lg font-medium zen-text mb-4">Recent Recordings</h3>
+          <h3 className="text-lg font-medium modern-text mb-4">Recent Recordings</h3>
           {recentRecordings.length === 0 ? (
             <div className="text-center py-6">
-              <MicrophoneIcon className="mx-auto h-12 w-12 zen-text opacity-60" />
-              <h4 className="mt-2 text-sm font-medium zen-text">No recordings yet</h4>
-              <p className="mt-1 text-sm zen-text opacity-75">
+              <MicrophoneIcon className="mx-auto h-12 w-12 modern-text opacity-60" />
+              <h4 className="mt-2 text-sm font-medium modern-text">No recordings yet</h4>
+              <p className="mt-1 text-sm modern-text-muted">
                 Start your first recording to see it appear here.
               </p>
             </div>
@@ -191,21 +193,21 @@ export default function Dashboard({ onStartRecording }: DashboardProps) {
               {recentRecordings.map((recording) => {
                 const StatusIcon = getStatusIcon(recording.status);
                 return (
-                  <div key={recording.id} className="flex items-center justify-between p-4 glass-panel rounded-lg hover:glass-panel-rounded transition-all">
+                  <div key={recording.id} className="flex items-center justify-between p-4 modern-card bg-opacity-60 hover:bg-opacity-80 transition-all duration-200">
                     <div className="flex items-center space-x-3">
-                      <StatusIcon className="h-5 w-5 zen-text opacity-70" />
+                      <StatusIcon className="h-5 w-5 modern-text opacity-70" />
                       <div>
-                        <p className="text-sm font-medium zen-text">{recording.title}</p>
-                        <p className="text-xs zen-text opacity-75">
+                        <p className="text-sm font-medium modern-text">{recording.title}</p>
+                        <p className="text-xs modern-text-muted">
                           {format(new Date(recording.date), 'MMM d, yyyy • h:mm a')}
                         </p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="glass-button inline-flex items-center px-2.5 py-0.5 text-xs font-medium zen-text">
+                      <span className="modern-button-secondary inline-flex items-center px-2.5 py-0.5 text-xs font-medium">
                         {recording.status}
                       </span>
-                      <span className="text-xs zen-text opacity-75">
+                      <span className="text-xs modern-text-muted">
                         {Math.floor(recording.duration / 60)}m {recording.duration % 60}s
                       </span>
                     </div>

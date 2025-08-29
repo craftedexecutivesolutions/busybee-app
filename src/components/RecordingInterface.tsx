@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   StopIcon,
   PauseIcon,
@@ -25,6 +25,8 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
   const [showPostRecordingForm, setShowPostRecordingForm] = useState(false);
   const [meetingTitle, setMeetingTitle] = useState('');
   const [meetingType, setMeetingType] = useState<'commission' | 'case' | 'other'>('commission');
+  const [liveTimer, setLiveTimer] = useState(0);
+  const [startTime, setStartTime] = useState(0);
   
   const {
     isRecording,
@@ -50,19 +52,34 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
     clearTranscript
   } = useLiveTranscription();
 
+  // Live timer effect
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    
+    if (isRecording && !isPaused) {
+      interval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        setLiveTimer(elapsed);
+      }, 1000);
+    }
+    
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isRecording, isPaused, startTime]);
+
   const formatDuration = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
+    const secs = Math.floor(seconds % 60);
     
-    if (hours > 0) {
-      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-    return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   const handleStartRecording = async () => {
     try {
+      setStartTime(Date.now());
+      setLiveTimer(0);
       await startRecording();
       
       // Start live transcription if supported
@@ -78,6 +95,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
   };
 
   const handleStopRecording = () => {
+    setLiveTimer(0);
     stopRecording();
     stopTranscription();
     setShowPostRecordingForm(true);
@@ -179,21 +197,21 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
     <div className="max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-8 sm:mb-12 text-center px-4">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-light zen-text mb-3 sm:mb-4 floating">BusyBee</h1>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-light zen-text mb-3 sm:mb-4 floating">BeeRec</h1>
         <p className="text-base sm:text-lg zen-text opacity-80">
-          Record your meetings in paradise
+          Start the Buzz
         </p>
       </div>
 
       {/* Post-Recording Form Modal */}
       {showPostRecordingForm && (
         <div className="fixed inset-0 flex items-center justify-center p-4 z-50 tropical-beach-bg">
-          <div className="glass-panel p-6 sm:p-8 w-full max-w-md">
+          <div className="modern-card p-6 sm:p-8 w-full max-w-md backdrop-blur-xl">
             <h3 className="text-xl sm:text-2xl font-light zen-text mb-6 sm:mb-8 text-center">Meeting Details</h3>
             
             <div className="space-y-6">
               <div>
-                <label htmlFor="meeting-title" className="block text-sm font-medium zen-text mb-3 opacity-90">
+                <label htmlFor="meeting-title" className="block text-sm font-medium zen-text mb-2 opacity-90">
                   Meeting Title *
                 </label>
                 <input
@@ -201,8 +219,8 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
                   id="meeting-title"
                   value={meetingTitle}
                   onChange={(e) => setMeetingTitle(e.target.value)}
-                  className="w-full px-4 py-3 glass-panel-dark zen-text placeholder-white placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-30 transition-all duration-300"
-                  placeholder="e.g., Commission Meeting - August 2025"
+                  className="modern-input zen-text placeholder-white placeholder-opacity-60"
+                  placeholder="e.g., Regular Meeting"
                   autoFocus
                 />
               </div>
@@ -215,7 +233,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
                   id="meeting-type"
                   value={meetingType}
                   onChange={(e) => setMeetingType(e.target.value as 'commission' | 'case' | 'other')}
-                  className="w-full px-4 py-3 glass-panel-dark zen-text focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-30 transition-all duration-300 appearance-none bg-transparent"
+                  className="modern-input zen-text appearance-none"
                   style={{
                     backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.8)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e")`,
                     backgroundRepeat: 'no-repeat',
@@ -269,14 +287,14 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
       <div className="flex flex-col items-center">
         {/* Duration Display */}
         <div className="mb-8 sm:mb-12 text-center">
-          <div className="glass-panel-dark px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-2xl mb-4 sm:mb-6 inline-block floating">
+          <div className="modern-card px-4 sm:px-6 md:px-8 py-3 sm:py-4 mb-4 sm:mb-6 inline-block floating">
             <div className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-mono font-light zen-text">
-              {formatDuration(duration)}
+              {formatDuration(liveTimer)}
             </div>
           </div>
           {isRecording && (
             <div className="flex items-center justify-center">
-              <span className={`glass-panel px-6 py-2 rounded-full text-sm font-medium zen-text ${
+              <span className={`modern-card px-6 py-2 text-sm font-medium zen-text ${
                 isPaused ? '' : ''
               }`}>
                 <span className={`w-2 h-2 rounded-full mr-2 inline-block ${
@@ -293,9 +311,9 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
           {!isRecording && !audioBlob && (
             <button
               onClick={handleStartRecording}
-              className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 glass-button-circle transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 active:scale-95 zen-pulse floating"
+              className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 record-button-illuminated floating"
             >
-              <BeeIcon className="zen-text mx-auto" size={96} />
+              <img src="/busybee-yellow.svg" alt="BusyBee Record" className="w-24 h-24 mx-auto record-button-bee-icon" />
               <div className="absolute inset-0 rounded-full border-2 border-white border-opacity-30 animate-pulse"></div>
             </button>
           )}
@@ -304,7 +322,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
             <div className="flex flex-col items-center space-y-6 sm:space-y-8">
               <button
                 onClick={handlePauseResume}
-                className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 glass-button-circle transition-all duration-300 shadow-xl floating"
+                className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 record-control-button floating"
               >
                 {isPaused ? (
                   <PlayIcon className="h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 zen-text mx-auto" />
@@ -315,7 +333,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
 
               <button
                 onClick={handleStopRecording}
-                className="glass-button px-6 py-3 sm:px-8 sm:py-4 transition-all duration-300 shadow-xl floating"
+                className="modern-button px-6 py-3 sm:px-8 sm:py-4 floating"
               >
                 <div className="flex items-center gap-2 sm:gap-3">
                   <StopIcon className="h-5 w-5 sm:h-6 sm:w-6 zen-text" />
@@ -328,11 +346,11 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
           {audioBlob && !isRecording && !showPostRecordingForm && (
             <div className="text-center">
               <div className="mb-6">
-                <div className="w-32 h-32 md:w-40 md:h-40 glass-panel mx-auto flex items-center justify-center floating">
+                <div className="w-32 h-32 md:w-40 md:h-40 modern-card mx-auto flex items-center justify-center floating">
                   <DocumentTextIcon className="h-16 w-16 md:h-20 md:w-20 zen-text" />
                 </div>
               </div>
-              <div className="glass-panel-dark px-6 py-4 rounded-xl inline-block">
+              <div className="modern-card px-6 py-4 inline-block">
                 <p className="text-lg zen-text mb-2">Recording completed!</p>
                 <p className="text-sm zen-text opacity-75">
                   Add meeting details to process and save your recording.
@@ -345,8 +363,9 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
 
         {/* Instructions */}
         {!isRecording && !audioBlob && (
-          <div className="text-center glass-panel-dark px-6 py-4 rounded-xl">
-            <p className="zen-text mb-2">Click the microphone to start recording</p>
+          <div className="text-center modern-card px-6 py-4">
+            <p className="zen-text mb-2">Click the bee to start recording.
+        </p>
             <p className="text-sm zen-text opacity-75">Your meeting will be transcribed and processed automatically</p>
           </div>
         )}
@@ -354,7 +373,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
 
       {/* Live Transcript Panel - Always Visible */}
       {isTranscriptionSupported && (
-        <div className="glass-panel p-4 sm:p-6 mt-8 sm:mt-12 rounded-2xl">
+        <div className="modern-card p-4 sm:p-6 mt-8 sm:mt-12">
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div className="flex items-center space-x-2 sm:space-x-3">
               <DocumentTextIcon className="h-5 w-5 sm:h-6 sm:w-6 zen-text" />
@@ -379,7 +398,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
 
           <div className="relative">
             {liveTranscript ? (
-              <div className="max-h-64 overflow-y-auto glass-panel-extra-dark rounded-xl p-4">
+              <div className="max-h-64 overflow-y-auto modern-card bg-opacity-60 p-4">
                 <div className="space-y-3">
                   {transcriptSegments.length > 0 ? (
                     // Show segmented transcript with timestamps
@@ -409,7 +428,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
                 </div>
               </div>
             ) : (
-              <div className="max-h-64 glass-panel-extra-dark rounded-xl p-8">
+              <div className="max-h-64 modern-card bg-opacity-60 p-8">
                 <div className="text-center">
                   <SpeakerWaveIcon className="mx-auto h-12 w-12 zen-text opacity-60" />
                   <h4 className="mt-4 text-sm font-medium zen-text">

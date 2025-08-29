@@ -13,6 +13,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/bee-icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/bee-icon.svg" />
+      </head>
       <body className="antialiased paradise-bg">
         {children}
       </body>

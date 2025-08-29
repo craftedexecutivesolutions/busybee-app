@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { 
-  MicrophoneIcon,
   StopIcon,
   PauseIcon,
   PlayIcon,
   SpeakerWaveIcon,
   DocumentTextIcon
 } from '@heroicons/react/24/solid';
+import BeeIcon from './BeeIcon';
 import { useAudioRecorder } from '@/hooks/useAudioRecorder';
 import { useLiveTranscription } from '@/hooks/useLiveTranscription';
 import { AIProcessor } from '@/lib/ai-processor';
@@ -287,7 +287,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
               onClick={handleStartRecording}
               className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 glass-button-circle transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 active:scale-95 zen-pulse floating"
             >
-              <MicrophoneIcon className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 zen-text mx-auto" />
+              <BeeIcon className="zen-text mx-auto" size={96} />
               <div className="absolute inset-0 rounded-full border-2 border-white border-opacity-30 animate-pulse"></div>
             </button>
           )}

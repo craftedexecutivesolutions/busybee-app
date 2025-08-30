@@ -273,7 +273,7 @@ export default function FileUploadInterface({ onUploadComplete }: FileUploadInte
                 id="upload-meeting-title"
                 value={meetingTitle}
                 onChange={(e) => setMeetingTitle(e.target.value)}
-                className="modern-input zen-text placeholder-white placeholder-opacity-60"
+                className="modern-input zen-text"
                 placeholder="e.g., Q3 Board Meeting"
                 disabled={isProcessing}
               />
@@ -296,10 +296,10 @@ export default function FileUploadInterface({ onUploadComplete }: FileUploadInte
                   backgroundSize: '16px'
                 }}
               >
-                <option value="general" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>General Meeting </option>
-                <option value="case" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Legal Case Hearing </option>
-                <option value="board" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Board Meeting </option>
-                <option value="other" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Lecture/Workshop </option>
+                <option value="general">General Meeting</option>
+                <option value="case">Legal Case Hearing</option>
+                <option value="board">Board Meeting</option>
+                <option value="other">Lecture/Workshop</option>
               </select>
             </div>
           </div>

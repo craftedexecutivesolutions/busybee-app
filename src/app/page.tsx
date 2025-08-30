@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Toaster } from 'react-hot-toast';
+import { toast, Toaster } from 'react-hot-toast';
 import Layout from '@/components/Layout';
 import Dashboard from '@/components/Dashboard';
 import RecordingInterface from '@/components/RecordingInterface';
 import MeetingsList from '@/components/MeetingsList';
 import EmailInterface from '@/components/EmailInterface';
 import CalendarInterface from '@/components/CalendarInterface';
+import FileUploadInterface from '@/components/FileUploadInterface';
 import { Recording } from '@/types';
 
 export default function Home() {
@@ -24,6 +25,8 @@ export default function Home() {
         return <Dashboard onStartRecording={() => setCurrentPage('record')} />;
       case 'record':
         return <RecordingInterface onRecordingComplete={handleRecordingComplete} />;
+      case 'upload':
+        return <FileUploadInterface onUploadComplete={handleRecordingComplete} />;
       case 'meetings':
         return <MeetingsList />;
       case 'email':

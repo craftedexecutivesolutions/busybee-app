@@ -9,9 +9,9 @@ import {
   CheckCircleIcon,
   XCircleIcon
 } from '@heroicons/react/24/solid';
-import { AIProcessor } from '@/lib/ai-processor';
+import { OpenAIClient } from '@/lib/openai-client';
 import { Recording } from '@/types';
-import toast from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 interface FileUploadInterfaceProps {
   onUploadComplete?: (recording: Recording) => void;
@@ -22,7 +22,7 @@ export default function FileUploadInterface({ onUploadComplete }: FileUploadInte
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [fileType, setFileType] = useState<'audio' | 'text' | null>(null);
   const [meetingTitle, setMeetingTitle] = useState('');
-  const [meetingType, setMeetingType] = useState<'commission' | 'case' | 'board' | 'other'>('commission');
+  const [meetingType, setMeetingType] = useState<'general' | 'case' | 'board' | 'other'>('general');
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -80,27 +80,29 @@ export default function FileUploadInterface({ onUploadComplete }: FileUploadInte
     const processingToast = toast.loading('Processing file...');
 
     try {
-      let transcriptionResult;
+      let processingResult;
+      const openAIClient = OpenAIClient.getInstance();
 
       if (fileType === 'audio') {
-        // Process audio file
-        toast.loading('Transcribing audio...', { id: processingToast });
-        transcriptionResult = await AIProcessor.transcribeAudio(uploadedFile);
+        // Process audio file (includes transcription + analysis)
+        toast.loading('Transcribing and analyzing audio...', { id: processingToast });
+        processingResult = await openAIClient.processAudioFile(
+          uploadedFile,
+          meetingTitle,
+          meetingType
+        );
       } else {
-        // For text files, read the content
+        // For text files, read the content and process with OpenAI
         toast.loading('Reading text file...', { id: processingToast });
         const text = await uploadedFile.text();
-        transcriptionResult = { text, confidence: 1.0, segments: [] };
+        toast.loading('Analyzing content...', { id: processingToast });
+        
+        processingResult = await openAIClient.processTranscript(
+          text,
+          meetingTitle,
+          meetingType
+        );
       }
-
-      // Process using unified processor
-      toast.loading('Analyzing actual content...', { id: processingToast });
-      
-      const processingResult = await AIProcessor.processTranscript(
-        transcriptionResult.text,
-        meetingTitle,
-        meetingType
-      );
 
       // Save to meeting-summaries folder via API
       toast.loading('Saving files...', { id: processingToast });
@@ -131,8 +133,8 @@ export default function FileUploadInterface({ onUploadComplete }: FileUploadInte
         duration: 0, // Duration not applicable for uploaded files
         status: 'completed',
         type: meetingType,
-        transcriptUrl: transcriptionResult.text,
-        summaryUrl: JSON.stringify(processingResult),
+        transcriptUrl: processingResult.transcript || '',
+        summaryUrl: processingResult.summary || '',
         participants: processingResult.participants || []
       };
 
@@ -141,7 +143,13 @@ export default function FileUploadInterface({ onUploadComplete }: FileUploadInte
       const updatedRecordings = [recording, ...existingRecordings];
       localStorage.setItem('recordings', JSON.stringify(updatedRecordings));
 
-      toast.success('File processed and saved successfully!', { id: processingToast });
+      const agentMessage = meetingType === 'board' 
+        ? 'File processed by Roberts Rules Agent and saved successfully!' 
+        : meetingType === 'case'
+        ? 'File processed by Legal Assistant Agent and saved successfully!'
+        : 'File processed and saved successfully!';
+      
+      toast.success(agentMessage, { id: processingToast });
       
       if (onUploadComplete) {
         onUploadComplete(recording);
@@ -151,7 +159,7 @@ export default function FileUploadInterface({ onUploadComplete }: FileUploadInte
       setUploadedFile(null);
       setFileType(null);
       setMeetingTitle('');
-      setMeetingType('commission');
+      setMeetingType('general');
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -278,7 +286,7 @@ export default function FileUploadInterface({ onUploadComplete }: FileUploadInte
               <select
                 id="upload-meeting-type"
                 value={meetingType}
-                onChange={(e) => setMeetingType(e.target.value as 'commission' | 'case' | 'board' | 'other')}
+                onChange={(e) => setMeetingType(e.target.value as 'general' | 'case' | 'board' | 'other')}
                 className="modern-input zen-text appearance-none"
                 disabled={isProcessing}
                 style={{
@@ -288,10 +296,10 @@ export default function FileUploadInterface({ onUploadComplete }: FileUploadInte
                   backgroundSize: '16px'
                 }}
               >
-                <option value="commission" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Commission Meeting</option>
-                <option value="case" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Case Hearing</option>
-                <option value="board" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Board Meeting</option>
-                <option value="other" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Other</option>
+                <option value="general" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>General Meeting </option>
+                <option value="case" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Legal Case Hearing </option>
+                <option value="board" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Board Meeting </option>
+                <option value="other" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Lecture/Workshop </option>
               </select>
             </div>
           </div>
@@ -334,13 +342,34 @@ export default function FileUploadInterface({ onUploadComplete }: FileUploadInte
       <div className="modern-card p-6 text-center">
         <div className="flex items-center justify-center space-x-2 mb-3">
           <CheckCircleIcon className="h-5 w-5 text-green-400" />
-          <p className="zen-text font-medium">Smart Processing</p>
+          <p className="zen-text font-medium">Expert AI Agent Processing</p>
         </div>
-        <p className="zen-text text-sm opacity-75">
-          {meetingType === 'board' 
-            ? 'Board meetings will be processed using Roberts Rules of Order format'
-            : 'Files will be automatically processed based on the selected meeting type'}
-        </p>
+        <div className="zen-text text-sm opacity-75 space-y-2">
+          {meetingType === 'board' && (
+            <div className="p-3 bg-blue-500 bg-opacity-20 rounded-lg">
+              <p className="font-medium text-blue-200">⚖️ Roberts Rules Agent Active</p>
+              <p>Specialized board meeting analysis with proper parliamentary procedure, motion tracking, quorum status, and voting records following Robert&apos;s Rules of Order.</p>
+            </div>
+          )}
+          {meetingType === 'case' && (
+            <div className="p-3 bg-purple-500 bg-opacity-20 rounded-lg">
+              <p className="font-medium text-purple-200">👨‍⚖️ Legal Assistant Agent Active</p>
+              <p>Expert legal case analysis extracting case numbers, parties present, court personnel, legal issues, procedural matters, evidence, and rulings.</p>
+            </div>
+          )}
+          {meetingType === 'general' && (
+            <div className="p-3 bg-green-500 bg-opacity-20 rounded-lg">
+              <p className="font-medium text-green-200">📝 Friendly Notes Assistant Active</p>
+              <p>Creates useful, readable meeting notes perfect for team meetings, project discussions, and general business meetings. Conversational tone, practical takeaways.</p>
+            </div>
+          )}
+          {meetingType === 'other' && (
+            <div className="p-3 bg-orange-500 bg-opacity-20 rounded-lg">
+              <p className="font-medium text-orange-200">🎓 Casual Notes Assistant Active</p>
+              <p>Perfect for lectures, workshops, training sessions, and educational content. Captures key learnings and insights in an easy-to-review format.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

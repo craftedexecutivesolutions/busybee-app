@@ -12,7 +12,8 @@ import {
   DevicePhoneMobileIcon,
   ComputerDesktopIcon,
   EnvelopeIcon,
-  CalendarDaysIcon
+  CalendarDaysIcon,
+  CloudArrowUpIcon
 } from '@heroicons/react/24/outline';
 
 // Cute Flying Bee SVG Component with dotted trail
@@ -78,6 +79,7 @@ interface LayoutProps {
 const navigation = [
   { name: 'Dashboard', id: 'dashboard', icon: HomeIcon },
   { name: 'Record', id: 'record', icon: MicrophoneIcon },
+  { name: 'Upload', id: 'upload', icon: CloudArrowUpIcon },
   { name: 'Meetings', id: 'meetings', icon: DocumentTextIcon },
   { name: 'Email', id: 'email', icon: EnvelopeIcon },
   { name: 'Calendar', id: 'calendar', icon: CalendarDaysIcon },
@@ -91,7 +93,7 @@ export default function Layout({ children, currentPage, onPageChange }: LayoutPr
   const [isMobileView, setIsMobileView] = useState(false);
 
   return (
-    <div className={`min-h-screen ${isMobileView ? 'max-w-sm mx-auto' : ''}`}>
+    <div className={`paradise-bg min-h-screen ${isMobileView ? 'max-w-sm mx-auto' : ''}`}>
       {/* Mobile Navigation Toggle */}
       <div className={`${isMobileView ? '' : 'md:hidden'} fixed top-4 left-4 z-50`}>
         <button

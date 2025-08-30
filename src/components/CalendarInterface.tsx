@@ -10,7 +10,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon
 } from '@heroicons/react/24/outline';
-import toast from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 interface CalendarEvent {
   id: string;

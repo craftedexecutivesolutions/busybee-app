@@ -11,9 +11,9 @@ import {
 import BeeIcon from './BeeIcon';
 import { useAudioRecorder } from '@/hooks/useAudioRecorder';
 import { useLiveTranscription } from '@/hooks/useLiveTranscription';
-import { AIProcessor } from '@/lib/ai-processor';
+import { OpenAIClient } from '@/lib/openai-client';
 import { Recording } from '@/types';
-import toast from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 interface RecordingInterfaceProps {
   onRecordingComplete: (recording: Recording) => void;
@@ -24,7 +24,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
   const showLiveTranscript = true; // Always show live transcript
   const [showPostRecordingForm, setShowPostRecordingForm] = useState(false);
   const [meetingTitle, setMeetingTitle] = useState('');
-  const [meetingType, setMeetingType] = useState<'commission' | 'case' | 'other'>('commission');
+  const [meetingType, setMeetingType] = useState<'general' | 'case' | 'board' | 'other'>('general');
   const [liveTimer, setLiveTimer] = useState(0);
   const [startTime, setStartTime] = useState(0);
   
@@ -127,15 +127,13 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
     const processingToast = toast.loading('Processing recording...');
 
     try {
-      // Step 1: Transcribe audio
-      toast.loading('Transcribing audio...', { id: processingToast });
-      const transcriptionResult = await AIProcessor.transcribeAudio(audioBlob);
-
-      // Step 2: Process transcript
-      toast.loading('Generating meeting notes...', { id: processingToast });
-      const processingResult = await AIProcessor.processTranscript(
-        transcriptionResult.text,
-        meetingTitle
+      // Process audio using OpenAI (includes transcription + analysis)
+      toast.loading('Transcribing and analyzing audio...', { id: processingToast });
+      const openAIClient = OpenAIClient.getInstance();
+      const processingResult = await openAIClient.processAudioFile(
+        new File([audioBlob], 'recording.wav', { type: 'audio/wav' }),
+        meetingTitle,
+        meetingType
       );
 
       // Step 3: Save files to local storage (not desktop downloads)
@@ -157,8 +155,8 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
         status: 'completed',
         type: meetingType,
         audioUrl: audioBase64, // Store as base64 data URL
-        transcriptUrl: transcriptionResult.text, // Store transcript text directly
-        summaryUrl: JSON.stringify(processingResult), // Store processed result as JSON
+        transcriptUrl: processingResult.transcript || '', // Store transcript text directly
+        summaryUrl: processingResult.summary || '', // Store clean markdown summary
         participants: processingResult.participants || []
       };
 
@@ -232,7 +230,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
                 <select
                   id="meeting-type"
                   value={meetingType}
-                  onChange={(e) => setMeetingType(e.target.value as 'commission' | 'case' | 'other')}
+                  onChange={(e) => setMeetingType(e.target.value as 'general' | 'case' | 'board' | 'other')}
                   className="modern-input zen-text appearance-none"
                   style={{
                     backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.8)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e")`,
@@ -241,9 +239,10 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
                     backgroundSize: '16px'
                   }}
                 >
-                  <option value="commission" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Commission Meeting</option>
-                  <option value="case" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Case Hearing</option>
-                  <option value="other" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Other</option>
+                  <option value="general" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>General Meeting</option>
+                  <option value="case" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Legal Case Hearing</option>
+                  <option value="board" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Board Meeting</option>
+                  <option value="other" style={{ background: 'rgba(0,0,0,0.9)', color: 'white' }}>Lecture/Workshop</option>
                 </select>
               </div>
             </div>

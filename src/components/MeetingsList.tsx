@@ -8,13 +8,12 @@ import {
   DocumentIcon,
   EyeIcon,
   ArrowDownTrayIcon,
-  FunnelIcon,
-  ChevronDownIcon,
-  MicrophoneIcon
+  MicrophoneIcon,
+  TrashIcon
 } from '@heroicons/react/24/outline';
 import { Recording } from '@/types';
 import { format } from 'date-fns';
-import toast from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 export default function MeetingsList() {
   const [recordings, setRecordings] = useState<Recording[]>([]);
@@ -28,7 +27,7 @@ export default function MeetingsList() {
     {
       id: '1',
       title: 'Commission Meeting - Budget Review',
-      date: new Date('2025-08-25T14:00:00').toISOString(),
+      date: new Date('2025-08-25T14:00:00'),
       duration: 3600, // 1 hour
       status: 'completed',
       type: 'commission',
@@ -40,7 +39,7 @@ export default function MeetingsList() {
     {
       id: '2',
       title: 'Case Hearing - Employee Appeal #2024-156',
-      date: new Date('2025-08-24T10:30:00').toISOString(),
+      date: new Date('2025-08-24T10:30:00'),
       duration: 2400, // 40 minutes
       status: 'completed',
       type: 'case',
@@ -52,7 +51,7 @@ export default function MeetingsList() {
     {
       id: '3',
       title: 'Staff Training Session - New Procedures',
-      date: new Date('2025-08-23T09:00:00').toISOString(),
+      date: new Date('2025-08-23T09:00:00'),
       duration: 5400, // 1.5 hours
       status: 'completed',
       type: 'other',
@@ -64,7 +63,7 @@ export default function MeetingsList() {
     {
       id: '4',
       title: 'Executive Meeting - Policy Updates',
-      date: new Date('2025-08-22T15:30:00').toISOString(),
+      date: new Date('2025-08-22T15:30:00'),
       duration: 1800, // 30 minutes
       status: 'processing',
       type: 'commission',
@@ -147,6 +146,47 @@ export default function MeetingsList() {
     setShowDownloadMenu(null);
   };
 
+  const handleClearAll = () => {
+    if (recordings.length === 0) {
+      toast.error('No recordings to clear');
+      return;
+    }
+    
+    if (window.confirm('Are you sure you want to clear all recordings? This action cannot be undone.')) {
+      setRecordings([]);
+      localStorage.removeItem('recordings');
+      toast.success('All recordings have been cleared');
+    }
+  };
+
+  const handleDownloadAll = () => {
+    const completedRecordings = recordings.filter(r => r.status === 'completed');
+    
+    if (completedRecordings.length === 0) {
+      toast.error('No completed recordings available for download');
+      return;
+    }
+
+    let downloadCount = 0;
+    completedRecordings.forEach(recording => {
+      // Download audio
+      if (recording.audioUrl) {
+        downloadCount++;
+      }
+      // Download transcript
+      if (recording.transcriptUrl) {
+        downloadCount++;
+      }
+      // Download summary
+      if (recording.summaryUrl) {
+        downloadCount++;
+      }
+    });
+
+    toast.success(`Downloading ${downloadCount} files from ${completedRecordings.length} recordings`);
+    // In a real app, this would trigger downloads of all available files
+  };
+
   const formatDuration = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -172,49 +212,71 @@ export default function MeetingsList() {
 
       {/* Search and Filters */}
       <div className="modern-card p-4 sm:p-6 mb-6">
-        <div className="flex flex-col sm:flex-row gap-4">
-          {/* Search */}
-          <div className="flex-1">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <MagnifyingGlassIcon className="h-5 w-5 modern-text opacity-60" />
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
+            {/* Search */}
+            <div className="flex-1">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <MagnifyingGlassIcon className="h-5 w-5 modern-text opacity-60" />
+                </div>
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="modern-input pl-10 pr-3 py-2 w-full"
+                  placeholder="Search meetings or participants..."
+                />
               </div>
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="modern-input pl-10 pr-3 py-2 w-full"
-                placeholder="Search meetings or participants..."
-              />
+            </div>
+
+            {/* Type Filter */}
+            <div>
+              <select
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value as any)}
+                className="modern-input pl-3 pr-10 py-2"
+              >
+                <option value="all">All Types</option>
+                <option value="commission">Commission Meetings</option>
+                <option value="case">Case Hearings</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            {/* Status Filter */}
+            <div>
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value as any)}
+                className="modern-input pl-3 pr-10 py-2"
+              >
+                <option value="all">All Status</option>
+                <option value="completed">Completed</option>
+                <option value="processing">Processing</option>
+                <option value="error">Error</option>
+              </select>
             </div>
           </div>
 
-          {/* Type Filter */}
-          <div>
-            <select
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value as any)}
-              className="modern-input pl-3 pr-10 py-2"
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-border">
+            <button
+              onClick={handleDownloadAll}
+              disabled={recordings.filter(r => r.status === 'completed').length === 0}
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-all duration-200"
             >
-              <option value="all">All Types</option>
-              <option value="commission">Commission Meetings</option>
-              <option value="case">Case Hearings</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          {/* Status Filter */}
-          <div>
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value as any)}
-              className="modern-input pl-3 pr-10 py-2"
+              <ArrowDownTrayIcon className="h-4 w-4" />
+              Download All
+            </button>
+            <button
+              onClick={handleClearAll}
+              disabled={recordings.length === 0}
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-all duration-200"
             >
-              <option value="all">All Status</option>
-              <option value="completed">Completed</option>
-              <option value="processing">Processing</option>
-              <option value="error">Error</option>
-            </select>
+              <TrashIcon className="h-4 w-4" />
+              Clear All
+            </button>
           </div>
         </div>
       </div>

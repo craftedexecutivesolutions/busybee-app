@@ -23,7 +23,10 @@ export async function POST(request: NextRequest) {
     // Save summary file
     const summaryFilename = `${dateStr}_${safeTitle}_summary.md`;
     const summaryPath = path.join(summariesDir, summaryFilename);
-    fs.writeFileSync(summaryPath, summary);
+    
+    // Ensure summary is a string
+    const summaryContent = typeof summary === 'string' ? summary : JSON.stringify(summary, null, 2);
+    fs.writeFileSync(summaryPath, summaryContent);
 
     // Save transcript if provided
     if (transcript) {

@@ -1,0 +1,163 @@
+SUPERIOR COURT OF CALIFORNIA
+COUNTY OF LOS ANGELES
+CENTRAL DISTRICT
+
+THE PEOPLE OF THE STATE OF CALIFORNIA,
+                                    Plaintiff,
+v.                                               Case No. BA453789
+MICHAEL RODRIGUEZ,
+                                    Defendant.
+
+TRANSCRIPT OF PROCEEDINGS
+Motion Hearing
+November 15, 2024, 9:00 AM
+Department 42
+
+HONORABLE JUDGE SARAH MARTINEZ presiding
+
+APPEARANCES:
+For the People: Deputy District Attorney Lisa Chen
+For the Defendant: Defense Attorney Robert Kim
+
+THE COURT: Good morning, counsel. We're here on case number BA453789, The People versus Michael Rodriguez. This is the time set for the defense motion to suppress evidence. Counsel, are you ready to proceed?
+
+MR. KIM: Good morning, Your Honor. Robert Kim appearing for the defendant, Michael Rodriguez, who is present in custody. We are ready to proceed on our motion to suppress.
+
+MS. CHEN: Good morning, Your Honor. Lisa Chen for the People. We are ready as well.
+
+THE COURT: Very well. Mr. Kim, this is your motion. Please proceed.
+
+MR. KIM: Thank you, Your Honor. We move to suppress all evidence obtained during the warrantless search of my client's vehicle on October 3rd, 2024. The search violated my client's Fourth Amendment rights as there was no probable cause and no exigent circumstances justifying the search.
+
+THE COURT: Ms. Chen, what is the People's position?
+
+MS. CHEN: Your Honor, the People oppose the motion. Officer Johnson had reasonable suspicion to conduct a Terry stop based on the defendant's suspicious behavior near a recently burglarized store. During the lawful detention, Officer Johnson observed drug paraphernalia in plain view through the vehicle window, providing probable cause for the search.
+
+THE COURT: Mr. Kim, do you have any witnesses you'd like to call?
+
+MR. KIM: Yes, Your Honor. We call Officer David Johnson to the stand.
+
+THE CLERK: Officer Johnson, please raise your right hand. Do you solemnly swear that the testimony you are about to give will be the truth, the whole truth, and nothing but the truth, so help you God?
+
+OFFICER JOHNSON: I do.
+
+THE CLERK: Please state your full name and spell your last name for the record.
+
+OFFICER JOHNSON: David Johnson, J-O-H-N-S-O-N.
+
+MR. KIM: Officer Johnson, you were on duty on October 3rd, 2024, at approximately 2:15 PM, correct?
+
+OFFICER JOHNSON: That's correct.
+
+MR. KIM: And you initiated a traffic stop of my client's vehicle, a blue Honda Civic, license plate 7ABC123?
+
+OFFICER JOHNSON: Yes, I did.
+
+MR. KIM: What was the basis for the stop?
+
+OFFICER JOHNSON: I observed the defendant parked across from Morrison Electronics, which had been burglarized two days earlier. The defendant appeared to be watching the store and took notes or photographs with his phone.
+
+MR. KIM: Did you observe any traffic violations?
+
+OFFICER JOHNSON: No, sir.
+
+MR. KIM: Did you see my client commit any crime?
+
+OFFICER JOHNSON: Not directly, but his behavior was consistent with someone casing the location.
+
+MS. CHEN: Objection, calls for speculation.
+
+THE COURT: Sustained. Officer, please limit your testimony to what you actually observed.
+
+MR. KIM: Officer Johnson, after you approached the vehicle, what happened next?
+
+OFFICER JOHNSON: I asked Mr. Rodriguez for his license and registration. When he reached into the glove compartment, I observed what appeared to be a small plastic baggie containing a white powdery substance.
+
+MR. KIM: How far were you from the vehicle when you made this observation?
+
+OFFICER JOHNSON: Approximately three feet from the passenger window.
+
+MR. KIM: Was the window open or closed?
+
+OFFICER JOHNSON: The window was partially down, about four inches.
+
+MR. KIM: What did you do next?
+
+OFFICER JOHNSON: I asked Mr. Rodriguez to step out of the vehicle and conducted a search based on what I believed to be contraband in plain view.
+
+MR. KIM: Did you obtain a warrant for this search?
+
+OFFICER JOHNSON: No, sir. Based on the plain view doctrine and the suspected contraband, I believed I had probable cause to search.
+
+MR. KIM: No further questions, Your Honor.
+
+THE COURT: Ms. Chen, cross-examination?
+
+MS. CHEN: Thank you, Your Honor. Officer Johnson, you mentioned the defendant was taking notes or photographs. Did this concern you given the recent burglary?
+
+OFFICER JOHNSON: Yes, it raised red flags given the timing and location.
+
+MS. CHEN: And when you observed the substance in the glove compartment, could you clearly see it?
+
+OFFICER JOHNSON: Yes, ma'am. The lighting was good, and the substance was clearly visible.
+
+MS. CHEN: In your training and experience, what did the substance appear to be?
+
+MR. KIM: Objection, calls for speculation without proper foundation.
+
+THE COURT: I'll allow it based on the officer's training and experience.
+
+OFFICER JOHNSON: Based on my five years of experience and narcotics training, it appeared to be cocaine.
+
+MS. CHEN: No further questions.
+
+THE COURT: Mr. Kim, any redirect?
+
+MR. KIM: Briefly, Your Honor. Officer Johnson, you testified that taking notes near a business is suspicious behavior. Isn't it true that many people take notes or photographs in public areas for legitimate reasons?
+
+OFFICER JOHNSON: That's possible, yes.
+
+MR. KIM: And you cannot say with certainty what my client was actually doing, can you?
+
+OFFICER JOHNSON: No, sir, I cannot.
+
+MR. KIM: Thank you. No further questions.
+
+THE COURT: Officer Johnson, you may step down. Counsel, do either of you have any other witnesses?
+
+MR. KIM: No, Your Honor.
+
+MS. CHEN: No, Your Honor.
+
+THE COURT: Very well. I'll hear closing arguments. Mr. Kim?
+
+MR. KIM: Your Honor, the evidence clearly shows this was an unlawful detention escalated to an unlawful search. Officer Johnson admitted he observed no traffic violation and no criminal activity. Suspicious behavior alone cannot justify a Terry stop. The subsequent search was fruit of the poisonous tree and should be suppressed.
+
+MS. CHEN: Your Honor, the officer reasonably suspected criminal activity based on the totality of circumstances - the defendant's presence near a recently burglarized location, his apparent surveillance behavior, and note-taking. The detention was lawful, and the contraband was in plain view, justifying the search under established precedent.
+
+THE COURT: Thank you, counsel. I've considered the testimony and arguments. While I understand defense counsel's position, I find that Officer Johnson had reasonable suspicion to initiate the stop based on the specific articulable facts: the defendant's presence near a recently burglarized store and his apparent surveillance behavior. 
+
+Once the officer observed what he reasonably believed to be contraband in plain view during the lawful detention, probable cause existed for the search. The motion to suppress is DENIED.
+
+MR. KIM: Your Honor, we respectfully request the court reconsider. The plain view doctrine requires the officer to be lawfully present when the observation occurs.
+
+THE COURT: Counsel, I understand your position, but I've made my ruling. The officer was lawfully present during a valid Terry stop. The motion is denied.
+
+Is there anything else before we adjourn?
+
+MS. CHEN: No, Your Honor.
+
+MR. KIM: Nothing further, Your Honor.
+
+THE COURT: Very well. We are adjourned.
+
+(Whereupon the proceedings concluded at 9:47 AM)
+
+---
+
+CERTIFICATE
+
+I hereby certify that the foregoing is a true and correct transcript of the proceedings had in the above-entitled matter.
+
+_________________________
+COURT REPORTER

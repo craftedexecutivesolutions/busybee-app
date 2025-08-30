@@ -125,11 +125,11 @@ export default function CalendarInterface() {
   const getEventTypeColor = (type: string) => {
     switch (type) {
       case 'call':
-        return 'bg-blue-500 bg-opacity-20 border-blue-400';
+        return 'bg-gray-500 bg-opacity-20 border-gray-400';
       case 'meeting':
         return 'bg-green-500 bg-opacity-20 border-green-400';
       case 'reminder':
-        return 'bg-yellow-500 bg-opacity-20 border-yellow-400';
+        return 'bg-orange-500 bg-opacity-20 border-orange-400';
       default:
         return 'bg-purple-500 bg-opacity-20 border-purple-400';
     }
@@ -254,10 +254,10 @@ export default function CalendarInterface() {
                         onClick={() => setSelectedDate(day)}
                         className={`w-full h-full p-2 rounded-lg text-left transition-all ${
                           isSelected ? 'glass-panel-rounded' : 'hover:glass-panel'
-                        } ${isToday ? 'ring-2 ring-blue-400 ring-opacity-50' : ''}`}
+                        } ${isToday ? 'ring-2 ring-orange-400 ring-opacity-50' : ''}`}
                       >
                         <span className={`text-sm font-medium ${
-                          isToday ? 'zen-text text-blue-400' : 'zen-text'
+                          isToday ? 'zen-text text-orange-400' : 'zen-text'
                         }`}>
                           {day.getDate()}
                         </span>

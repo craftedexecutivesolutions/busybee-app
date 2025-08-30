@@ -192,7 +192,7 @@ export default function EmailInterface() {
                     </p>
                   </div>
                   <div className="flex items-center gap-1 ml-2">
-                    {email.starred && <StarIconSolid className="h-4 w-4 text-yellow-400" />}
+                    {email.starred && <StarIconSolid className="h-4 w-4 text-orange-400" />}
                     <span className="text-xs zen-text opacity-60">{formatDate(email.date)}</span>
                   </div>
                 </div>

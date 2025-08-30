@@ -97,8 +97,8 @@ export default function MeetingsList() {
   const getStatusColor = (status: Recording['status']) => {
     switch (status) {
       case 'completed': return 'text-green-600 bg-green-100';
-      case 'processing': return 'text-yellow-600 bg-yellow-100';
-      case 'recording': return 'text-blue-600 bg-blue-100';
+      case 'processing': return 'text-orange-600 bg-orange-100';
+      case 'recording': return 'text-orange-600 bg-orange-100';
       case 'error': return 'text-red-600 bg-red-100';
       default: return 'text-gray-600 bg-gray-100';
     }
@@ -106,7 +106,7 @@ export default function MeetingsList() {
 
   const getTypeColor = (type: Recording['type']) => {
     switch (type) {
-      case 'commission': return 'text-blue-600 bg-blue-100';
+      case 'commission': return 'text-gray-600 bg-gray-100';
       case 'case': return 'text-purple-600 bg-purple-100';
       case 'other': return 'text-gray-600 bg-gray-100';
       default: return 'text-gray-600 bg-gray-100';

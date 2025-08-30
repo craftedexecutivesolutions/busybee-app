@@ -298,7 +298,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
                 isPaused ? '' : ''
               }`}>
                 <span className={`w-2 h-2 rounded-full mr-2 inline-block ${
-                  isPaused ? 'bg-yellow-400' : 'bg-red-400 animate-pulse'
+                  isPaused ? 'bg-orange-400' : 'bg-orange-500 animate-pulse'
                 }`}></span>
                 {isPaused ? 'Paused' : 'Recording'}
               </span>
@@ -380,7 +380,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
               <h3 className="text-lg sm:text-xl font-medium zen-text">Live Transcript</h3>
               {isTranscribing && (
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
                   <span className="text-sm zen-text opacity-75">Listening...</span>
                 </div>
               )}
@@ -414,7 +414,7 @@ export default function RecordingInterface({ onRecordingComplete }: RecordingInt
                           {segment.text}
                         </p>
                         {segment.confidence && segment.confidence < 0.8 && (
-                          <span className="text-xs text-yellow-300" title="Low confidence">⚠️</span>
+                          <span className="text-xs text-orange-300" title="Low confidence">⚠️</span>
                         )}
                       </div>
                     ))
